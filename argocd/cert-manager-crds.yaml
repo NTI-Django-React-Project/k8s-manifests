@@ -1,17 +1,17 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: cert-manager
+  name: cert-manager-crds
   namespace: argocd
   annotations:
-    argocd.argoproj.io/sync-wave: "1"
+    argocd.argoproj.io/sync-wave: "0"
 spec:
   project: default
 
   source:
-    repoURL: https://charts.jetstack.io
-    chart: cert-manager
+    repoURL: https://github.com/cert-manager/cert-manager
     targetRevision: v1.14.3
+    path: deploy/crds
 
   destination:
     server: https://kubernetes.default.svc
@@ -19,6 +19,6 @@ spec:
 
   syncPolicy:
     automated:
-      prune: true
+      prune: false    
       selfHeal: true
 
