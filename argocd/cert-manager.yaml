@@ -3,8 +3,6 @@ kind: Application
 metadata:
   name: cert-manager
   namespace: argocd
-  annotations:
-    argocd.argoproj.io/sync-wave: "1"
 spec:
   project: default
 
@@ -12,6 +10,10 @@ spec:
     repoURL: https://charts.jetstack.io
     chart: cert-manager
     targetRevision: v1.14.3
+    helm:
+      parameters:
+        - name: installCRDs
+          value: "true"
 
   destination:
     server: https://kubernetes.default.svc
