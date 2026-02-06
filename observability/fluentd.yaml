@@ -28,6 +28,8 @@ spec:
             - port=9200
             - -p
             - index=fluent-bit
+            - -p
+            - suppress_type_name=true
           volumeMounts:
             - name: podlogs
               mountPath: /var/log/pods
