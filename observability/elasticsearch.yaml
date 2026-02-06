@@ -20,7 +20,7 @@ spec:
             - name: discovery.type
               value: single-node
             - name: ES_JAVA_OPTS
-              value: "-Xms1g -Xmx1g"          # ← زيادة الـ heap (كان 512m)
+              value: "-Xms512m -Xmx512m"          
             - name: xpack.security.enabled
               value: "false"
 
@@ -30,9 +30,9 @@ spec:
           resources:                     
             requests:
               memory: "2Gi"                
-              cpu: "1"                     
+              cpu: "500m"                     
             limits:
-              memory: "4Gi"                  
+              memory: "2Gi"                  
               cpu: "2"                       
 
           readinessProbe:
