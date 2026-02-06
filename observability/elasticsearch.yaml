@@ -20,11 +20,30 @@ spec:
             - name: discovery.type
               value: single-node
             - name: ES_JAVA_OPTS
-              value: "-Xms512m -Xmx512m"
+              value: "-Xms4g -Xmx4g"          # ← زيادة الـ heap (كان 512m)
             - name: xpack.security.enabled
               value: "false"
+
           ports:
             - containerPort: 9200
+
+          resources:                     
+            requests:
+              memory: "1Gi"                
+              cpu: "1"                     
+            limits:
+              memory: "2Gi"                  
+              cpu: "2"                       
+
+          readinessProbe:
+            httpGet:
+              path: /_cluster/health?wait_for_status=yellow
+              port: 9200
+            initialDelaySeconds: 30
+            periodSeconds: 10
+            timeoutSeconds: 5
+            failureThreshold: 10
+
 ---
 apiVersion: v1
 kind: Service
@@ -36,4 +55,4 @@ spec:
     app: elasticsearch
   ports:
     - port: 9200
-
+      targetPort: 9200
