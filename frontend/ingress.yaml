@@ -9,7 +9,7 @@ metadata:
     alb.ingress.kubernetes.io/group.name: shared-alb
     alb.ingress.kubernetes.io/listen-ports: '[{"HTTP":80}]'
 spec:
-  ingressClassName: alb
+  ingressClassName: nginx
   rules:
     - host: yassinabuelsheikh.duckdns.org
       http:
