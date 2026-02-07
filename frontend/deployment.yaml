@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: frontend
-          image: sha256:a6a5967b0b1ae4a2c55a1b7ac498884b716b80638331b7f893e29b972c3e3c34
+          image: mazenmostafa429/frontend
           ports:
             - containerPort: 3000
 
