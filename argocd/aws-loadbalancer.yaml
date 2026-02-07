@@ -20,6 +20,8 @@ spec:
           value: eu-north-1
         - name: vpcId
           value: vpc-00744f9e1033b50ac
+        - name: subnet
+          value: public-1b
         - name: serviceAccount.create
           value: "false"
         - name: serviceAccount.name
