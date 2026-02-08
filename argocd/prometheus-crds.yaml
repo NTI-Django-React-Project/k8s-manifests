@@ -1,0 +1,36 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: prometheus-crds
+  namespace: argocd
+  # يفضل إضافة finalizer في الإنتاج للحماية
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+  annotations:
+    argocd.argoproj.io/sync-wave: "1"  
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/prometheus-operator/prometheus-operator.git
+    # استخدم tag محدد (مستقر) بدل main في الإنتاج
+    targetRevision: v0.75.2   # مثال - غيّره لإصدار مستقر يتوافق مع الـ chart
+    path: example/prometheus-operator-crd
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: monitoring
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true           # لو الـ namespace مش موجود
+      - ServerSideApply=true           # مهم جدًا للـ CRDs
+      - ApplyOutOfSyncOnly=true
+      - RespectIgnoreDifferences=true
+    # retry مهم في الإنتاج عشان يتعامل مع مشاكل الشبكة
+    retry:
+      limit: 5
+      backoff:
+        duration: 10s
+        factor: 2
+        maxDuration: 3m
