@@ -8,6 +8,11 @@ metadata:
     alb.ingress.kubernetes.io/target-type: ip
     alb.ingress.kubernetes.io/group.name: shared-alb
     alb.ingress.kubernetes.io/listen-ports: '[{"HTTP":80}]'
+    # ✅ HEALTH CHECK for endpoint
+    alb.ingress.kubernetes.io/healthcheck-path: /api/health/
+    alb.ingress.kubernetes.io/healthcheck-port: traffic-port
+    alb.ingress.kubernetes.io/success-codes: "200"
+
 spec:
   ingressClassName: alb
   rules:
