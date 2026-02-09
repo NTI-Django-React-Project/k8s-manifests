@@ -1,17 +1,17 @@
-V1ZoQ2NGWnRWbmxqTW14MlltcHZaMWxZUW5kamVUa3lUVkZ3Y21GWE5XdFBh
-VUpGV2xoQ2MySXpiSFJhClZ6VXdRMjB4YkdSSFJtdFpXRkpvQ2s5bmIyZEpS
-elZvWWxkVk5rbEhXbmxpTWpVd1dsYzFhME5wUVdkaQpiVVowV2xoT2QxbFhU
-bXhQYVVKdFkyMDVkV1JIVm5WYVFYQjZZMGRXYWdwUFoyOW5TVWhLYkdOSGVI
-QloKTWtaNlQybEJlVU5wUVdkak1sWnpXbGRPTUdJelNUWkRhVUZuU1VOQ2RG
-bFlVbXBoUlhob1dXMVdjMk42CmIwc0tTVU5CWjBsRFFXZFpXRUozVDJsQ2JX
-TnRPWFZrUjFaMVdrRnZaMGxJVW14aVdFSnpXVmhTYkU5bgpiMmRKUTBGblls
-ZFdNRmxYVW1oa1IwVTJDa05wUVdkSlEwRm5TVWQ0YUZsdFZuTmplbTlMU1VO
-QlowbEQKUVdkSlEwSm9ZMGhCTmtsSFdubGlNalV3V2xjMWEwTnBRV2RKUTBK
-NlkwZFdhZ3BQWjI5blNVTkJaMGxEClFtcGlNalV3V1Zkc2RWcFlTbnBQWjI5
-blNVTkJaMGxEUVdkSlF6Qm5ZbTFHZEZwVWIyZGFia3AyWW01UwpiR0p0VVVz
-S1NVTkJaMGxEUVdkSlEwRm5TVWRzZEZsWFpHeFBhVUowV1Zod2JHSnRNWFpq
-TTFKb1dtMUYKTUUxcWEzWmFia3AyWW01U2JHSnRVVXRKUTBGbkNrbERRV2RK
-UTBGblNVaENkbU51VW5wUFoyOW5TVU5CClowbERRV2RKUTBGblNVTkJkRWxI
-VG5aaWJsSm9ZVmMxYkdOc1FuWmpibEUyU1VSTmR3cE5SRUZMUTJkdgpQUW9L
-Cgo=
+// فك Base64
+let content = Buffer.from($json["data"], 'base64').toString('utf8');
 
+// تعديل الـ image tag فقط
+content = content.replace(/(image:\s*mazenmostafa429\/frontend)(:\S+)?/, "$1:" + $json["tag"]);
+
+// رجّع الملف ل Base64 تاني
+return [{ 
+    json: { }, 
+    binary: { 
+        data: { 
+            data: Buffer.from(content, 'utf8').toString('base64'), 
+            mimeType: 'application/octet-stream', 
+            fileName: 'deployment.yaml'
+        } 
+    } 
+}];
