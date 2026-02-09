@@ -6,13 +6,15 @@ metadata:
   annotations:
     alb.ingress.kubernetes.io/scheme: internet-facing
     alb.ingress.kubernetes.io/target-type: ip
-    alb.ingress.kubernetes.io/listen-ports: '[{"HTTP":80}]'
+    alb.ingress.kubernetes.io/certificate-arn: arn:aws:acm:eu-north-1:XXX:certificate/YYY
+    alb.ingress.kubernetes.io/listen-ports: '[{"HTTP":80},{"HTTPS":443}]'
+    alb.ingress.kubernetes.io/ssl-redirect: '443'
     alb.ingress.kubernetes.io/success-codes: "200,302"
     alb.ingress.kubernetes.io/group.name: shared-alb
 spec:
   ingressClassName: alb
   rules:
-    - host: yassinabuelsheikh.duckdns.org
+    - host: yassinabuelsheikh.store
       http:
         paths:
           - path: /grafana
