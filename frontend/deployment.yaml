@@ -17,4 +17,4 @@ spec:
         - name: frontend
           image: mazenmostafa429/frontend:111
           ports:
-            - containerPort: 3000
+            - containerPort: 80
