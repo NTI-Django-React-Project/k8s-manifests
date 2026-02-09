@@ -1,17 +1,13 @@
-// فك Base64
-let content = Buffer.from($json["data"], 'base64').toString('utf8');
+Ly8g2YHZgyBCYXNlNjQKbGV0IGNvbnRlbnQgPSBCdWZmZXIuZnJvbSgkanNv
+blsiZGF0YSJdLCAnYmFzZTY0JykudG9TdHJpbmcoJ3V0ZjgnKTsKCi8vINiq
+2LnYr9mK2YQg2KfZhNmAIGltYWdlIHRhZyDZgdmC2LcKY29udGVudCA9IGNv
+bnRlbnQucmVwbGFjZSgvKGltYWdlOlxzKm1hemVubW9zdGFmYTQyOVwvZnJv
+bnRlbmQpKDpcUyspPy8sICIkMToiICsgJGpzb25bInRhZyJdKTsKCi8vINix
+2KzZkdi5INin2YTZhdmE2YEg2YQgQmFzZTY0INiq2KfZhtmKCnJldHVybiBb
+eyAKICAgIGpzb246IHsgfSwgCiAgICBiaW5hcnk6IHsgCiAgICAgICAgZGF0
+YTogeyAKICAgICAgICAgICAgZGF0YTogQnVmZmVyLmZyb20oY29udGVudCwg
+J3V0ZjgnKS50b1N0cmluZygnYmFzZTY0JyksIAogICAgICAgICAgICBtaW1l
+VHlwZTogJ2FwcGxpY2F0aW9uL29jdGV0LXN0cmVhbScsIAogICAgICAgICAg
+ICBmaWxlTmFtZTogJ2RlcGxveW1lbnQueWFtbCcKICAgICAgICB9IAogICAg
+fSAKfV07Cg==
 
-// تعديل الـ image tag فقط
-content = content.replace(/(image:\s*mazenmostafa429\/frontend)(:\S+)?/, "$1:" + $json["tag"]);
-
-// رجّع الملف ل Base64 تاني
-return [{ 
-    json: { }, 
-    binary: { 
-        data: { 
-            data: Buffer.from(content, 'utf8').toString('base64'), 
-            mimeType: 'application/octet-stream', 
-            fileName: 'deployment.yaml'
-        } 
-    } 
-}];
