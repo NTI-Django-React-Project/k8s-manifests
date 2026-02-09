@@ -1,13 +1,20 @@
-Ly8g2YHZgyBCYXNlNjQKbGV0IGNvbnRlbnQgPSBCdWZmZXIuZnJvbSgkanNv
-blsiZGF0YSJdLCAnYmFzZTY0JykudG9TdHJpbmcoJ3V0ZjgnKTsKCi8vINiq
-2LnYr9mK2YQg2KfZhNmAIGltYWdlIHRhZyDZgdmC2LcKY29udGVudCA9IGNv
-bnRlbnQucmVwbGFjZSgvKGltYWdlOlxzKm1hemVubW9zdGFmYTQyOVwvZnJv
-bnRlbmQpKDpcUyspPy8sICIkMToiICsgJGpzb25bInRhZyJdKTsKCi8vINix
-2KzZkdi5INin2YTZhdmE2YEg2YQgQmFzZTY0INiq2KfZhtmKCnJldHVybiBb
-eyAKICAgIGpzb246IHsgfSwgCiAgICBiaW5hcnk6IHsgCiAgICAgICAgZGF0
-YTogeyAKICAgICAgICAgICAgZGF0YTogQnVmZmVyLmZyb20oY29udGVudCwg
-J3V0ZjgnKS50b1N0cmluZygnYmFzZTY0JyksIAogICAgICAgICAgICBtaW1l
-VHlwZTogJ2FwcGxpY2F0aW9uL29jdGV0LXN0cmVhbScsIAogICAgICAgICAg
-ICBmaWxlTmFtZTogJ2RlcGxveW1lbnQueWFtbCcKICAgICAgICB9IAogICAg
-fSAKfV07Cg==
-
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: frontend
+  namespace: frontend
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: frontend
+  template:
+    metadata:
+      labels:
+        app: frontend
+    spec:
+      containers:
+        - name: frontend
+          image: mazenmostafa429/frontend:
+          ports:
+            - containerPort: 3000
