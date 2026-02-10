@@ -18,7 +18,7 @@ spec:
       serviceAccountName: backend-sa 
       containers:
         - name: backend
-          image: mohamedessam122002/backend-app:v2
+          image: mohamedessam122002/backend-app:v3
           ports:
             - containerPort: 8000
           env:
