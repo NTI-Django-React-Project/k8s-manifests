@@ -68,15 +68,17 @@ spec:
       targetRevision: 58.5.0
       helm:
         valueFiles:
-          - $values/values.yaml
+          - $values/observability/values.yaml
 
-    - repoURL: https://github.com/abdo073/test_prometheus_grafana.git
+    - repoURL: https://github.com/NTI-Django-React-Project/k8s-manifests.git
       targetRevision: main
       ref: values
-      path: values
 
   syncPolicy:
     automated:
       prune: true
       selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+      - ServerSideApply=true  
 
