@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
         - name: backend
-          image: mohamedessam122002/backend-app:latest
+          image: mohamedessam122002/backend-app:v1
           ports:
             - containerPort: 8000
           env:
