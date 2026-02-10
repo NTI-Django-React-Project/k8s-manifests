@@ -7,7 +7,7 @@ metadata:
   finalizers:
     - resources-finalizer.argocd.argoproj.io
   annotations:
-    argocd.argoproj.io/sync-wave: "1"  
+    argocd.argoproj.io/sync-wave: "2"  
 spec:
   project: default
   source:
@@ -33,4 +33,5 @@ spec:
       backoff:
         duration: 10s
         factor: 2
+
         maxDuration: 3m
