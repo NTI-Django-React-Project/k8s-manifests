@@ -18,4 +18,21 @@ spec:
           image: mohamedessam122002/backend-app:latest
           ports:
             - containerPort: 8000
+          env:
+            - name: DB_HOST
+              valueFrom:
+                configMapKeyRef:
+                  name: rds-config
+                  key: DB_HOST
 
+            - name: DB_NAME
+              valueFrom:
+                configMapKeyRef:
+                  name: rds-config
+                  key: DB_NAME
+
+            - name: DB_USER
+              valueFrom:
+                configMapKeyRef:
+                  name: rds-config
+                  key: DB_USER
