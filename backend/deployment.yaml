@@ -15,6 +15,7 @@ spec:
       labels:
         app: backend
     spec:
+      serviceAccountName: backend-sa 
       containers:
         - name: backend
           image: mohamedessam122002/backend-app:v1
