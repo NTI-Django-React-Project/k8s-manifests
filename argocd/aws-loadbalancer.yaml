@@ -15,11 +15,11 @@ spec:
     helm:
       parameters:
         - name: clusterName
-          value: eks-cluster
+          value: gig-route-cluster
         - name: region
           value: eu-north-1
         - name: vpcId
-          value: vpc-045429d22652a8bf9
+          value: vpc-09f51354613e3e16c
         - name: serviceAccount.create
           value: "false"
         - name: serviceAccount.name
