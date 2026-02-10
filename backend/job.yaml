@@ -10,7 +10,7 @@ spec:
   template:
     spec:
       restartPolicy: OnFailure
-      serviceAccountName: backend-sa   # 👈 نفس IRSA
+      serviceAccountName: backend-sa  
       containers:
         - name: migrate
           image: mohamedessam122002/backend-app:latest
