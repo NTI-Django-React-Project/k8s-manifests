@@ -4,7 +4,7 @@ metadata:
   name: django-migrate
   namespace: backend
   annotations:
-    argocd.argoproj.io/sync-wave: "1"
+    argocd.argoproj.io/sync-wave: "3"
 spec:
   backoffLimit: 6
   template:
