@@ -25,6 +25,8 @@ kind: ConfigMap
 metadata:
   name: rds-config
   namespace: backend
+  annotations:
+    argocd.argoproj.io/sync-wave: "0"
 data:
   DB_HOST: gig-route.c1iuiewi0186.eu-north-1.rds.amazonaws.com
   DB_NAME: gig_route
