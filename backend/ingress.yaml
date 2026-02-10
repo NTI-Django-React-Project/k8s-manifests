@@ -4,6 +4,7 @@ metadata:
   name: backend-ingress
   namespace: backend
   annotations:
+    argocd.argoproj.io/sync-wave: "6"
     alb.ingress.kubernetes.io/scheme: internet-facing
     alb.ingress.kubernetes.io/target-type: ip
     alb.ingress.kubernetes.io/group.name: shared-alb
