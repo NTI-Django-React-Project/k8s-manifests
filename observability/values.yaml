@@ -67,18 +67,18 @@ coreDns:
 prometheus:
   enabled: true
   prometheusSpec:
-    # Resource limits
+    replicas: 1
     resources:
       requests:
+        memory: 128Mi
+        cpu: 100m
+      limits:
         memory: 256Mi
         cpu: 200m
-      limits:
-        memory: 512Mi
-        cpu: 500m
     
     # Data retention
-    retention: 7d
-    retentionSize: "8GB"
+    retention: 2d
+    retentionSize: "2GB"
 
 # ===================================
 # Grafana Configuration
