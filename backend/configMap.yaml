@@ -1,12 +1,22 @@
+# apiVersion: v1
+# kind: ConfigMap
+# metadata:
+#   name: backend-config
+#   namespace: backend
+# data:
+#   DB_HOST: app-db.c1iuiewi0186.eu-north-1.rds.amazonaws.com
+#   DB_PORT: "5432"
+#   DB_NAME: app-db
+#   DJANGO_SETTINGS_MODULE: backend.settings
+#   ENV: production
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: backend-config
-  namespace: backend
+  name: rds-connection-config
+  namespace: default
 data:
-  DB_HOST: app-db.c1iuiewi0186.eu-north-1.rds.amazonaws.com
-  DB_PORT: "5432"
-  DB_NAME: app-db
-  DJANGO_SETTINGS_MODULE: backend.settings
-  ENV: production
-
+  RDSHOST: "gig-route.c1iuiewi0186.eu-north-1.rds.amazonaws.com"
+  DBNAME: "gig_route"
+  DBUSER: "gig_route_db_user"
+  PSQL_COMMAND_TEMPLATE: |
+    psql "host=${RDSHOST} port=5432 dbname=${DBNAME} user=${DBUSER} sslmode=verify-full sslrootcert=/certs/global-bundle.pem password=$(aws secretsmanager get-secret-value --secret-id 'arn:aws:secretsmanager:eu-north-1:231056963705㊙️rds!db-73e392db-6123-4c6a-8310-b6969e66e9ff-lHYLEc' --query SecretString --output text | jq -r '.password')"
