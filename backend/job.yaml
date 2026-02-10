@@ -13,7 +13,7 @@ spec:
       serviceAccountName: backend-sa  
       containers:
         - name: migrate
-          image: mohamedessam122002/backend-app:latest
+          image: mohamedessam122002/backend-app:v3
           command: ["python", "manage.py", "migrate"]
           env:
             - name: DB_HOST
