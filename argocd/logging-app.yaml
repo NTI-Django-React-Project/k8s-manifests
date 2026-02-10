@@ -4,13 +4,13 @@ metadata:
   name: logging
   namespace: argocd
   annotations:
-    argocd.argoproj.io/sync-wave: "3"
+    argocd.argoproj.io/sync-wave: "4"
 spec:
   project: default
   source:
     repoURL: https://github.com/NTI-Django-React-Project/k8s-manifests
     targetRevision: main
-    path: observability
+    path: logging
     directory:
       recurse: true
   destination:
@@ -20,4 +20,6 @@ spec:
     automated:
       prune: true
       selfHeal: true
+    syncOptions:
+      - CreateNamespace=true  
 
