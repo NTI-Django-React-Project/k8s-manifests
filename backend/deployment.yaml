@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: backend
-          image: mohamedessam122002/backend-django-app
+          image: mohamedessam122002/backend-app:latest
           ports:
             - containerPort: 8000
 
