@@ -33,11 +33,18 @@ spec:
                 configMapKeyRef:
                   name: rds-config
                   key: DB_NAME
-
+            
             - name: DB_USER
               valueFrom:
                 configMapKeyRef:
                   name: rds-config
                   key: DB_USER
+                  
+            - name: DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: rds-db-secret
+                  key: DB_PASSWORD
+            
             # - name: DB_SECRET_ARN
             #   value: arn:aws:secretsmanager:eu-north-1:231056963705:secret:rds!db-2b8beca6-8393-45bc-901d-1ca9de0c8346-s7O2fT
