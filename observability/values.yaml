@@ -24,7 +24,7 @@ prometheus:
         memory: 256Mi
         cpu: 200m
       limits:
-        memory: 512Gi
+        memory: 512Mi
         cpu: 500m
 
 grafana:
