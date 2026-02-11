@@ -94,6 +94,36 @@ prometheus:
 # ===================================
 # Grafana Configuration
 # ===================================
+grafana:
+  enabled: true
+  admin:
+    existingSecret: grafana-admin-secret
+    userKey: admin-user
+    passwordKey: admin-password
+  resources:
+    requests:
+      memory: 128Mi
+      cpu: 100m
+    limits:
+      memory: 256Mi
+      cpu: 250m
+  persistence:
+    enabled: true
+    size: 5Gi
+  ingress:
+    enabled: true
+    ingressClassName: alb
+    annotations:
+      alb.ingress.kubernetes.io/scheme: internet-facing
+      alb.ingress.kubernetes.io/target-type: ip
+      alb.ingress.kubernetes.io/group.name: shared-alb
+      alb.ingress.kubernetes.io/listen-ports: '[{"HTTP":80},{"HTTPS":443}]'
+      alb.ingress.kubernetes.io/ssl-redirect: '443'
+      alb.ingress.kubernetes.io/certificate-arn: arn:aws:acm:eu-north-1:231056963705:certificate/5e76be6b-fbf8-474d-a62d-9e746ca23b19
+    hosts:
+      - grafana.yassinabuelsheikh.store
+    path: /
+    pathType: Prefix
 # grafana:
 #   enabled: true
   
