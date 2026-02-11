@@ -2,43 +2,51 @@
 
 
 - [Overview](#overview)  
-- [Architecture](#architecture)  
+- [Architecture](#architecture)
 - [Log Flow](#log-flow)  
-- [Project Structure](#project-structure)  
-- [Components](#components)  
-- [Argo CD Application](#argo-cd-application)  
+- [Project Structure](#project-structure)   
+- [Argo CD Application](#argo-cd-application)
+- [Backend Components](#backend-components)
+- [Frontend Components](#frontend-components)  
 - [Elasticsearch](#elasticsearch)  
 - [Fluent Bit](#fluent-bit)  
 - [Kibana](#kibana)  
-- [Ingress (AWS ALB)](#ingress-aws-alb)   
+- [Ingress (AWS ALB)](#ingress-aws-alb)
+- [Security](#security)
+- [Deployment Workflow](#deployment-workflow)
+- [Troubleshooting](#troubleshooting)   
 
 
 ---
 
-## Overview
+### Overview
 
-This setup deploys a **centralized logging stack** inside Kubernetes using:
+This repository contains all Kubernetes manifests required to deploy the Gig Router platform.
 
-- **Elasticsearch** → Log storage & indexing  
-- **Fluent Bit** → Lightweight log collector  
-- **Kibana** → Log visualization & search UI  
+Deployment strategy:
 
-The stack is managed via **Argo CD (GitOps workflow)**.
+✅ GitOps via Argo CD  
+✅ AWS EKS-based infrastructure  
+✅ Modular application separation  
+✅ Production-style architecture
+✅ Elasticsearch** → Log storage & indexing  
+✅ Fluent Bit** → Lightweight log collector  
+✅ Kibana** → Log visualization & search UI  
 
 ---
 
-## Architecture
+### Architecture
 
-### High-Level Logging Architecture
+#### High-Level Logging Architecture
 
-Kubernetes Pods → Fluent Bit → Elasticsearch → Kibana
+Users → AWS ALB → Kubernetes Ingress → Services → Pods → Fluent Bit → Elasticsearch → Kibana
 
 ![Screenshot_11-2-2026_201750_grok com](https://github.com/user-attachments/assets/1cdd9c31-a6e5-4ca4-a4e8-aa64fddb9a1b)
 
 
 ---
 
-## Log Flow
+### Log Flow
 
 1. Containers write logs → `/var/log/pods`  
 2. Fluent Bit (DaemonSet) collects logs  
@@ -49,50 +57,112 @@ Kubernetes Pods → Fluent Bit → Elasticsearch → Kibana
 
 ---
 
-## Project Structure
+### Project Structure
 
 ```text
 k8s-manifests/
-├── argocd/
-│   └── logging-app.yaml       # Argo CD Application
+├── argocd/                     # Argo CD Applications (GitOps Control)
+│   ├── apps.yaml
+│   ├── aws-loadbalancer.yaml
+│   ├── backend-app.yaml
+│   ├── cert-manager.yaml
+│   ├── external-secrets-app.yaml
+│   ├── frontend-app.yaml
+│   ├── logging-app.yaml
+│   ├── memcached-app.yaml
+│   ├── monitoring-helm.yaml
+│   └── prometheus-crds.yaml
 │
-└── logging/
-    ├── elasticsearch.yaml     # Elasticsearch Deployment + Service
-    ├── fluentd.yaml           # Fluent Bit DaemonSet
-    ├── kibana.yaml            # Kibana Deployment + Service
-    └── ingress.yaml           # AWS ALB Ingress
+├── backend/                    # Backend Application Resources
+│   ├── SecretStore.yaml
+│   ├── configMap.yaml
+│   ├── deployment.yaml
+│   ├── ingress.yaml
+│   ├── job.yaml
+│   ├── redis.yaml
+│   └── redis-service.yaml
+│
+├── frontend/                   # Frontend Application Resources
+│   ├── deployment.yaml
+│   ├── service.yaml
+│   ├── ingress.yaml
+│   └── networkpolicy.yaml
+│
+├── logging/                    # EFK Logging Stack
+│   ├── elasticsearch.yaml
+│   ├── fluentd.yaml
+│   ├── kibana.yaml
+│   └── ingress.yaml
+│
+├── memcached/                  # Memcached Helm Values
+    └── values.yaml
 
 ```
-
 ---
 
-# 🚀 Argo CD Application
+### Argo CD Application
 
-**File:** `argocd/logging-app.yaml`
+**File:** `argocd/`
 
 ### Purpose
 
-This Argo CD Application:
-
-✅ Watches Git repository  
-✅ Deploys logging stack automatically  
-✅ Enables self-healing  
-✅ Prunes removed resources  
+| Application               | Purpose                    |
+| ------------------------- | -------------------------- |
+| backend-app.yaml          | Backend services           |
+| frontend-app.yaml         | Frontend UI                |
+| logging-app.yaml          | EFK logging stack          |
+| external-secrets-app.yaml | Secrets integration        |
+| cert-manager.yaml         | TLS certificate management |
+| memcached-app.yaml        | Caching layer              |
+| aws-loadbalancer.yaml     | AWS ALB Controller         | 
 
 ---
 
-# 🗄 Elasticsearch
+### Backend Components
+
+**File:** `backend/`
+
+Resources
+```text
+✅ Deployment
+✅ Service
+✅ ConfigMap
+✅ Redis Cache
+✅ Kubernetes Job
+✅ Ingress
+```
+Responsibilities
+
+API Services
+Business Logic
+Database Connectivity
+Caching (Redis)
+
+### Frontend Components
+
+**File:** `frontend/`
+Resources
+```text
+✅ Deployment
+✅ Service
+✅ Ingress
+✅ NetworkPolicy
+```
+Responsibilities
+UI Rendering
+Client-side logic
+Secure traffic routing
+
+### Elasticsearch
 
 **File:** `logging/elasticsearch.yaml`
-
 ### Role
-
 Elasticsearch provides:
-
+```text
 ✅ Centralized log storage  
 ✅ Log indexing  
 ✅ Query engine for Kibana  
-
+```
 ---
 
 ### Key Design Decisions
@@ -104,10 +174,11 @@ Elasticsearch provides:
 ---
 
 ### Fluent Bit:
-
+```text
 ✅ Runs on every node (DaemonSet)
 ✅ Collects container logs
 ✅ Forwards logs to Elasticsearch
+```
 Log Source
 
 path=/var/log/pods/*/*/*.log
@@ -123,29 +194,77 @@ Logs stored in Elasticsearch index:
 
 fluent-bit
 
-### 📊 Kibana
+### Kibana
 
 File: logging/kibana.yaml
 Role
 
 Kibana provides:
-
+```text
 ✅ Log search
 ✅ Filtering
 ✅ Visualization UI
+```
 
-
-### 🌍 Ingress (AWS ALB)
+### Ingress (AWS ALB)
 
 File: logging/ingress.yaml
 Purpose
 
 Expose monitoring tools externally:
 
-✅ Grafana
 ✅ Kibana
-✅ Prometheus
 Example Route
 
 https://kibana.yassinabuelsheikh.store
 → Service: kibana:5601
+
+### Security
+
+Security mechanisms implemented:
+```text
+✅ External Secrets Operator
+✅ AWS Secrets Manager integration
+✅ Network Policies
+✅ TLS via Cert-Manager
+✅ IAM Roles for Service Accounts (IRSA)
+```
+### Deployment Workflow
+
+GitOps Flow
+Developer Push → GitHub → Argo CD → Kubernetes Sync
+
+Deployment Steps
+
+Push manifest changes
+
+Argo CD detects updates
+
+Automatic synchronization
+
+Drift correction (Self-Heal)
+
+### Troubleshooting
+Pods Not Updating
+kubectl get applications -n argocd
+kubectl describe application <app-name>
+
+Logs Missing
+kubectl logs -l app=fluent-bit -n monitoring
+
+Ingress Issues
+kubectl describe ingress -n monitoring
+
+Secrets Not Injected
+kubectl get externalsecret -A
+kubectl describe externalsecret <name>
+
+✅ Summary
+
+This repository provides:
+```text
+✅ Fully GitOps-managed Kubernetes workloads
+✅ Modular microservices deployment
+✅ Centralized logging & monitoring
+✅ Production-style DevOps architecture
+```
