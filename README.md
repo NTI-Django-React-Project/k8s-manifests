@@ -62,7 +62,7 @@ k8s-manifests/
     ├── kibana.yaml            # Kibana Deployment + Service
     └── ingress.yaml           # AWS ALB Ingress
 
-
+```
 
 ---
 
