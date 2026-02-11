@@ -18,7 +18,8 @@ spec:
       serviceAccountName: backend-sa 
       containers:
         - name: backend
-          image: :
+          # التعديل هنا بناءً على الـ JSON اللي بعته (جوه الـ body)
+          image: "231056963705.dkr.ecr.eu-north-1.amazonaws.com/gig-route-backend:38-ae9ef90"
           ports:
             - containerPort: 8000
           env:
