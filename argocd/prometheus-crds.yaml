@@ -1,40 +1,40 @@
-apiVersion: argoproj.io/v1alpha1
-kind: Application
-metadata:
-  name: prometheus-crds
-  namespace: argocd
-  finalizers:
-    - resources-finalizer.argocd.argoproj.io
-  annotations:
-    argocd.argoproj.io/sync-wave: "1"  # قبل monitoring
-spec:
-  project: default
-  source:
-    repoURL: https://prometheus-community.github.io/helm-charts
-    chart: kube-prometheus-stack
-    targetRevision: 58.5.0
-    helm:
-      skipCrds: false  # ⬅️ مهم جداً!
-      parameters:
-        - name: crds.enabled
-          value: "true"
-  destination:
-    server: https://kubernetes.default.svc
-    namespace: monitoring
-  syncPolicy:
-    automated:
-      prune: false  # ⬅️ ميمسحش الـ CRDs!
-      selfHeal: true
-    syncOptions:
-      - CreateNamespace=true
-      - ServerSideApply=true
-      - Replace=true
-    retry:
-      limit: 5
-      backoff:
-        duration: 10s
-        factor: 2
-        maxDuration: 3m
+# apiVersion: argoproj.io/v1alpha1
+# kind: Application
+# metadata:
+#   name: prometheus-crds
+#   namespace: argocd
+#   finalizers:
+#     - resources-finalizer.argocd.argoproj.io
+#   annotations:
+#     argocd.argoproj.io/sync-wave: "1"  # قبل monitoring
+# spec:
+#   project: default
+#   source:
+#     repoURL: https://prometheus-community.github.io/helm-charts
+#     chart: kube-prometheus-stack
+#     targetRevision: 58.5.0
+#     helm:
+#       skipCrds: false  # ⬅️ مهم جداً!
+#       parameters:
+#         - name: crds.enabled
+#           value: "true"
+#   destination:
+#     server: https://kubernetes.default.svc
+#     namespace: monitoring
+#   syncPolicy:
+#     automated:
+#       prune: false  # ⬅️ ميمسحش الـ CRDs!
+#       selfHeal: true
+#     syncOptions:
+#       - CreateNamespace=true
+#       - ServerSideApply=true
+#       - Replace=true
+#     retry:
+#       limit: 5
+#       backoff:
+#         duration: 10s
+#         factor: 2
+#         maxDuration: 3m
 
 
 
@@ -76,4 +76,5 @@ spec:
 #         factor: 2
 
 #         maxDuration: 3m
+
 
