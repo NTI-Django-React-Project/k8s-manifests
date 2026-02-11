@@ -70,11 +70,11 @@ prometheus:
     replicas: 1
     resources:
       requests:
-        memory: 2Gi      # 1 GB guaranteed
-        cpu: 250m
+        memory: 1Gi      # 1 GB guaranteed
+        cpu: 200m
       limits:
         memory: 4Gi      # 2 GB max
-        cpu: 1
+        cpu: 400m
     
     retention: 3h
     retentionSize: "200MB"
@@ -168,6 +168,35 @@ prometheus-node-exporter:
     limits:
       memory: 64Mi
       cpu: 100m
+
+# =================================
+# Alertmanager
+# =================================
+alertmanager:
+  enabled: true
+  alertmanagerSpec:
+    resources:
+      requests:
+        memory: 64Mi
+        cpu: 50m
+      limits:
+        memory: 128Mi
+        cpu: 100m
+    storage: {}  
+
+
+# =================================
+# Prometheus Operator
+# =================================
+prometheusOperator:
+  enabled: true
+  resources:
+    requests:
+      memory: 128Mi
+      cpu: 100m
+    limits:
+      memory: 256Mi
+      cpu: 200m    
 
 # ===================================
 # Kubelet Monitoring (Works in EKS)
