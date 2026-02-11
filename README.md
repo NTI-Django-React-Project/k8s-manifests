@@ -103,7 +103,7 @@ Elasticsearch provides:
 
 ---
 
-Fluent Bit:
+### Fluent Bit:
 
 ✅ Runs on every node (DaemonSet)
 ✅ Collects container logs
@@ -123,7 +123,7 @@ Logs stored in Elasticsearch index:
 
 fluent-bit
 
-📊 Kibana
+### 📊 Kibana
 
 File: logging/kibana.yaml
 Role
@@ -135,7 +135,7 @@ Kibana provides:
 ✅ Visualization UI
 
 
-🌍 Ingress (AWS ALB)
+### 🌍 Ingress (AWS ALB)
 
 File: logging/ingress.yaml
 Purpose
