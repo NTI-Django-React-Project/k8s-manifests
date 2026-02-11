@@ -73,8 +73,8 @@ prometheus:
         memory: 1Gi      # 1 GB guaranteed
         cpu: 200m
       limits:
-        memory: 4Gi      # 2 GB max
-        cpu: 400m
+        memory: 5Gi      # 2 GB max
+        cpu: 2000m
     
     retention: 3h
     retentionSize: "200MB"
