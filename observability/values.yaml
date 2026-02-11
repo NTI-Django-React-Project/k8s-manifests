@@ -67,27 +67,19 @@ coreDns:
 prometheus:
   enabled: true
   prometheusSpec:
-    affinity:
-      nodeAffinity:
-        requiredDuringSchedulingIgnoredDuringExecution:
-          nodeSelectorTerms:
-            - matchExpressions:
-                - key: kubernetes.io/hostname
-                  operator: In
-                  values:
-                    - ip-10-10-7-60.eu-north-1.compute.internal
     replicas: 1
     resources:
       requests:
-        memory: 1Gi
-        cpu: 200m
+        memory: 2Gi      # 1 GB guaranteed
+        cpu: 250m
       limits:
-        memory: 2Gi
-        cpu: 400m
+        memory: 4Gi      # 2 GB max
+        cpu: 1
     
-    # Data retention
-    retention: 1d
-    retentionSize: "1GB"
+    retention: 3h
+    retentionSize: "200MB"
+    storageSpec: {}
+    
     serviceMonitorSelectorNilUsesHelmValues: false
     podMonitorSelectorNilUsesHelmValues: false
     ruleSelectorNilUsesHelmValues: false
