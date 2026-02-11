@@ -31,3 +31,4 @@ data:
   DB_HOST: gig-route.c1iuiewi0186.eu-north-1.rds.amazonaws.com
   DB_NAME: gig_route
   DB_USER: gig_route_db_user
+  REDIS_URL:  redis://redis:6379/0 
