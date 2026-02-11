@@ -172,37 +172,37 @@ prometheus-node-exporter:
 # =================================
 # Alertmanager
 # =================================
-alertmanager:
-  enabled: true
-  alertmanagerSpec:
-    resources:
-      requests:
-        memory: 64Mi
-        cpu: 50m
-      limits:
-        memory: 128Mi
-        cpu: 100m
-    storage: {}  
+# alertmanager:
+#   enabled: true
+#   alertmanagerSpec:
+#     resources:
+#       requests:
+#         memory: 64Mi
+#         cpu: 50m
+#       limits:
+#         memory: 128Mi
+#         cpu: 100m
+#     storage: {}  
 
 
 # =================================
 # Prometheus Operator
 # =================================
-prometheusOperator:
-  enabled: true
-  resources:
-    requests:
-      memory: 128Mi
-      cpu: 100m
-    limits:
-      memory: 256Mi
-      cpu: 200m    
+# prometheusOperator:
+#   enabled: true
+#   resources:
+#     requests:
+#       memory: 128Mi
+#       cpu: 100m
+#     limits:
+#       memory: 256Mi
+#       cpu: 200m    
 
 # ===================================
 # Kubelet Monitoring (Works in EKS)
 # ===================================
-kubelet:
-  enabled: true
-  serviceMonitor:
-    https: true
+# kubelet:
+#   enabled: true
+#   serviceMonitor:
+#     https: true
 
