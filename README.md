@@ -1,3 +1,7 @@
+🚀 Gig Router DevOps – Kubernetes Manifests
+
+Production-grade Kubernetes manifests for deploying the Gig Router Platform using a GitOps-based workflow.
+ 
  📋 Table of Contents
 
 
@@ -21,25 +25,42 @@
 
 ### Overview
 
-This repository contains all Kubernetes manifests required to deploy the Gig Router platform.
-
+This repository contains the complete Kubernetes Infrastructure Layer for the Gig Router platform
 Deployment strategy:
 
-✅ GitOps via Argo CD  
-✅ AWS EKS-based infrastructure  
-✅ Modular application separation  
-✅ Production-style architecture
-✅ Elasticsearch** → Log storage & indexing  
-✅ Fluent Bit** → Lightweight log collector  
-✅ Kibana** → Log visualization & search UI  
+```text
+✅ GitOps-driven delivery via Argo CD
+✅ AWS EKS-based Kubernetes platform
+✅ Modular application architecture
+✅ Production-style workload separation
 
+Core capabilities:
+
+✅ Backend Microservices
+✅ Frontend Application
+✅ Centralized Logging (EFK Stack)
+✅ Traffic Management via AWS ALB
+✅ Secure Secret Management
 ---
+```
+### Key Features
 
+```text
+✅ Backend & Frontend Kubernetes Workloads
+✅ Elasticsearch / Fluent Bit / Kibana Logging Stack
+✅ AWS ALB Ingress Controller
+✅ External Secrets Operator Integration
+✅ Cert-Manager TLS Automation
+✅ Namespace-Based Isolation
+✅ Drift Detection & Self-Healing (Argo CD)
+```
 ### Architecture
 
 #### High-Level Logging Architecture
 
 Users → AWS ALB → Kubernetes Ingress → Services → Pods → Fluent Bit → Elasticsearch → Kibana
+
+![image(1)](https://github.com/user-attachments/assets/036a80c8-7b58-443e-8856-319eb24c58ad)
 
 ![Screenshot_11-2-2026_201750_grok com](https://github.com/user-attachments/assets/1cdd9c31-a6e5-4ca4-a4e8-aa64fddb9a1b)
 
@@ -149,15 +170,19 @@ Resources
 ✅ NetworkPolicy
 ```
 Responsibilities
-UI Rendering
-Client-side logic
-Secure traffic routing
+```text
+✅ UI Rendering
+✅ Client-side logic
+✅ Secure Traffic Routing
+```
+## Logging Stack
 
 ### Elasticsearch
 
 **File:** `logging/elasticsearch.yaml`
 ### Role
 Elasticsearch provides:
+
 ```text
 ✅ Centralized log storage  
 ✅ Log indexing  
@@ -167,10 +192,11 @@ Elasticsearch provides:
 
 ### Key Design Decisions
 
-- Single-node setup  
-- Security disabled (lab mode)  
-- JVM memory optimization  
-
+```text
+✅ Single-node deployment
+✅ JVM memory optimization
+✅ Security disabled (lab / internal mode) 
+```
 ---
 
 ### Fluent Bit:
