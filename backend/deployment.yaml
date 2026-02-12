@@ -19,7 +19,7 @@ spec:
       containers:
         - name: backend
           # التعديل هنا بناءً على الـ JSON اللي بعته (جوه الـ body)
-          image: 231056963705.dkr.ecr.eu-north-1.amazonaws.com/gig-route-backend:39-ae9ef90
+          image: 231056963705.dkr.ecr.eu-north-1.amazonaws.com/gig-route-backend:40-98e8383
           ports:
             - containerPort: 8000
           env:
